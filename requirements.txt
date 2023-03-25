@@ -1,5 +1,4 @@
 environs==9.5.0
 python-telegram-bot==13.*
 google-cloud-dialogflow==2.19.1
-google-cloud-tasks==2.12.1
 vk-api==11.9.9

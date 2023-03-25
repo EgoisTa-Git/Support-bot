@@ -152,4 +152,4 @@ cython_debug/
 .idea/
 
 smart-support-bot.json
-questions.json
+json/*

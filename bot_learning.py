@@ -2,7 +2,7 @@ import json
 
 from environs import Env
 
-from dialogflow_bot import create_intent
+from dialogflow_api import create_intent
 
 
 if __name__ == '__main__':
@@ -10,7 +10,7 @@ if __name__ == '__main__':
     env.read_env()
     project_id = env('DF_PROJECT_ID')
 
-    with open('questions.json', 'r') as file:
+    with open('json/questions.json', 'r') as file:
         intents_json = file.read()
     intents = json.loads(intents_json)
 
