@@ -11,7 +11,7 @@ env.read_env()
 vk_token = env('VK_API_KEY')
 
 
-def echo(event, vk_api):
+def reply_on_message(event, vk_api):
     project_id = env('DF_PROJECT_ID')
     text = event.text
     session_id = event.user_id
@@ -30,4 +30,4 @@ if __name__ == "__main__":
     long_poll = VkLongPoll(vk_session)
     for event in long_poll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            echo(event, vk_api)
+            reply_on_message(event, vk_api)
