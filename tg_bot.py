@@ -1,3 +1,5 @@
+from functools import partial
+
 from environs import Env
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler
@@ -10,7 +12,7 @@ def start(update: Update, context: CallbackContext):
     update.message.reply_text('Здравствуйте!')
 
 
-def reply_on_message(update: Update, context: CallbackContext):
+def reply_on_message(update: Update, context: CallbackContext, project_id):
     project_id = env('DF_PROJECT_ID')
     text = update.message.text
     session_id = update.message.chat_id
@@ -22,11 +24,16 @@ if __name__ == '__main__':
     env = Env()
     env.read_env()
     tg_bot_api_key = env('TG_BOT_APIKEY')
+    project_id = env('DF_PROJECT_ID')
+    reply_on_message_partial = partial(reply_on_message, project_id=project_id)
     updater = Updater(tg_bot_api_key)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(
-        MessageHandler(Filters.text & ~Filters.command, reply_on_message)
+        MessageHandler(
+            Filters.text & ~Filters.command,
+            reply_on_message_partial,
+        )
     )
     updater.start_polling()
     updater.idle()
