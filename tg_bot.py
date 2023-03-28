@@ -10,7 +10,7 @@ def start(update: Update, context: CallbackContext):
     update.message.reply_text('Здравствуйте!')
 
 
-def response(update: Update, context: CallbackContext):
+def reply_on_message(update: Update, context: CallbackContext):
     project_id = env('DF_PROJECT_ID')
     text = update.message.text
     session_id = update.message.chat_id
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(
-        MessageHandler(Filters.text & ~Filters.command, response)
+        MessageHandler(Filters.text & ~Filters.command, reply_on_message)
     )
     updater.start_polling()
     updater.idle()
