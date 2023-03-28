@@ -10,10 +10,6 @@ def start(update: Update, context: CallbackContext):
     update.message.reply_text('Здравствуйте!')
 
 
-def help_command(update: Update, context: CallbackContext):
-    update.message.reply_text('Help!')
-
-
 def response(update: Update, context: CallbackContext):
     project_id = env('DF_PROJECT_ID')
     text = update.message.text
@@ -29,7 +25,6 @@ if __name__ == '__main__':
     updater = Updater(tg_bot_api_key)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(
         MessageHandler(Filters.text & ~Filters.command, response)
     )
