@@ -13,11 +13,10 @@ def start(update: Update, context: CallbackContext):
 
 
 def reply_on_message(update: Update, context: CallbackContext, project_id):
-    project_id = env('DF_PROJECT_ID')
     text = update.message.text
     session_id = update.message.chat_id
-    response_text = detect_intent_texts(project_id, session_id, text)
-    update.message.reply_text(response_text)
+    response = detect_intent_texts(project_id, session_id, text)
+    update.message.reply_text(response.query_result.fulfillment_text)
 
 
 if __name__ == '__main__':

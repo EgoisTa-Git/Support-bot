@@ -10,11 +10,11 @@ from dialogflow_api import detect_intent_texts
 def reply_on_message(event, vk_api, project_id):
     text = event.text
     session_id = event.user_id
-    response_text = detect_intent_texts(project_id, session_id, text)
-    if response_text:
+    response = detect_intent_texts(project_id, session_id, text)
+    if not response.query_result.intent.is_fallback:
         vk_api.messages.send(
             user_id=event.user_id,
-            message=response_text,
+            message=response.query_result.fulfillment_text,
             random_id=random.randint(1, 1000)
         )
 
